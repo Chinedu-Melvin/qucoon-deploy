@@ -1,0 +1,57 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Deploy app to EC2 via SSH
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          set -e
+          sudo mkdir -p /home/ec2-user/app
+          sudo chown ec2-user:ec2-user /home/ec2-user/app
+          cd /home/ec2-user/app
+          rm -rf ./*
+
+          cat > app.py <<'EOF'
+$(cat app.py)
+EOF
+
+          cat > requirements.txt <<'EOF'
+$(cat requirements.txt)
+EOF
+
+          sudo yum install -y python3 || true
+          /usr/bin/python3 -m pip install --upgrade pip
+          /usr/bin/python3 -m pip install -r requirements.txt
+
+          sudo tee /etc/systemd/system/qucoon.service > /dev/null <<'EOF'
+[Unit]
+Description=Qucoon Flask App
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/app
+ExecStart=/usr/bin/python3 /home/ec2-user/app/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+          sudo systemctl daemon-reload
+          sudo systemctl enable qucoon.service
+          sudo systemctl restart qucoon.service
