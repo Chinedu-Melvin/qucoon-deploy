@@ -7,11 +7,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Deploy app to EC2 via SSH
+    - name: Deploy app to EC2
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.SERVER_IP }}
@@ -20,23 +21,70 @@ jobs:
         port: 22
         script: |
           set -e
-          sudo mkdir -p /home/ec2-user/app
-          sudo chown ec2-user:ec2-user /home/ec2-user/app
+          # Prepare app folder
+          mkdir -p /home/ec2-user/app
           cd /home/ec2-user/app
-          rm -rf ./*
 
+          # Copy latest files
+          rm -rf *
           cat > app.py <<'EOF'
-$(cat app.py)
-EOF
+          from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return """
+    <html>
+        <head>
+            <title>Qucoon Academy</title>
+            <style>
+                body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; }
+                header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
+                section { padding: 20px; max-width: 800px; margin: auto; }
+                h1 { color: #333; }
+                p { line-height: 1.6; font-size: 18px; }
+                footer { text-align: center; padding: 10px; background-color: #eee; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <header>
+                <h1>Welcome to Qucoon Academy</h1>
+            </header>
+            <section>
+                <h2>About Qucoon Academy</h2>
+                <p>Qucoon Academy is a leading tech training academy located in Lagos, Nigeria. We specialize in cloud engineering, cloud architecture, and hands-on practical learning for aspiring tech professionals.</p>
+                <p>Our mission is to provide students with structured mentorship, real-world projects, and industry-standard skills so they can confidently build careers in technology.</p>
+
+                <h2>My Learning Journey</h2>
+                <p>Hi! I’m currently learning <strong>cloud engineering and architecture</strong> at Qucoon Academy. Through this training, I’m gaining hands-on experience with cloud platforms, Terraform for infrastructure as code, CI/CD pipelines, and deploying real applications to the cloud.</p>
+                <p>This project is a demonstration of my learning: deploying a Flask web app on AWS using Terraform and GitHub Actions.</p>
+
+                <h2>Our Vision</h2>
+                <p>We aim to create a generation of highly skilled cloud engineers and architects who can contribute to both local and global tech ecosystems.</p>
+            </section>
+            <footer>
+                &copy; 2025 Qucoon Academy, Lagos. All rights reserved.
+            </footer>
+        </body>
+    </html>
+    """
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+          EOF
 
           cat > requirements.txt <<'EOF'
-$(cat requirements.txt)
-EOF
+          flask==2.3.2
+          EOF
 
+          # Install Python and Flask
           sudo yum install -y python3 || true
           /usr/bin/python3 -m pip install --upgrade pip
           /usr/bin/python3 -m pip install -r requirements.txt
 
+          # Create systemd service
           sudo tee /etc/systemd/system/qucoon.service > /dev/null <<'EOF'
 [Unit]
 Description=Qucoon Flask App
