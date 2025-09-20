@@ -21,11 +21,13 @@ jobs:
         port: 22
         script: |
           set -e
+
+          # Prepare app folder
           mkdir -p /home/ec2-user/app
           cd /home/ec2-user/app
           rm -rf *
 
-          # Create app.py with full content
+          # Write app.py
           cat > app.py <<'EOF'
 from flask import Flask
 
@@ -33,43 +35,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return """
-    <html>
-        <head>
-            <title>Qucoon Academy</title>
-            <style>
-                body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; }
-                header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
-                section { padding: 20px; max-width: 800px; margin: auto; }
-                h1 { color: #333; }
-                p { line-height: 1.6; font-size: 18px; }
-                footer { text-align: center; padding: 10px; background-color: #eee; margin-top: 20px; }
-            </style>
-        </head>
-        <body>
-            <header>
-                <h1>Welcome to Qucoon Academy</h1>
-            </header>
-            <section>
-                <h2>About Qucoon Academy</h2>
-                <p>Qucoon Academy is a leading tech training academy located in Lagos, Nigeria. We specialize in cloud engineering, cloud architecture, and hands-on practical learning for aspiring tech professionals.</p>
-                <p>Our mission is to provide students with structured mentorship, real-world projects, and industry-standard skills so they can confidently build careers in technology.</p>
+    return "<h1>Welcome to Qucoon Academy</h1><p>Learning cloud engineering and architecture!</p>"
 
-                <h2>My Learning Journey</h2>
-                <p>Hi! I’m currently learning <strong>cloud engineering and architecture</strong> at Qucoon Academy. Through this training, I’m gaining hands-on experience with cloud platforms, Terraform for infrastructure as code, CI/CD pipelines, and deploying real applications to the cloud.</p>
-                <p>This project is a demonstration of my learning: deploying a Flask web app on AWS using Terraform and GitHub Actions.</p>
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+EOF
 
-                <h2>Our Vision</h2>
-                <p>We aim to create a generation of highly skilled cloud engineers and architects who can contribute to both local and global tech ecosystems.</p>
-            </section>
-            <footer>
-                &copy; 2025 Qucoon Academy, Lagos. All rights reserved.
-            </footer>
-        </body>
-    </html>
-    """
-
-          # Create requirements.txt
+          # Write requirements.txt
           cat > requirements.txt <<'EOF'
 flask==2.3.2
 EOF
@@ -95,6 +67,8 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
+          # Start the service
           sudo systemctl daemon-reload
           sudo systemctl enable qucoon.service
           sudo systemctl restart qucoon.service
+          sudo systemctl status qucoon.service
