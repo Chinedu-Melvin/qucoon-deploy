@@ -21,14 +21,13 @@ jobs:
         port: 22
         script: |
           set -e
-          # Prepare app folder
           mkdir -p /home/ec2-user/app
           cd /home/ec2-user/app
-
-          # Copy latest files
           rm -rf *
+
+          # Create app.py with full content
           cat > app.py <<'EOF'
-          from flask import Flask
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -70,14 +69,10 @@ def home():
     </html>
     """
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
-          EOF
-
+          # Create requirements.txt
           cat > requirements.txt <<'EOF'
-          flask==2.3.2
-          EOF
+flask==2.3.2
+EOF
 
           # Install Python and Flask
           sudo yum install -y python3 || true

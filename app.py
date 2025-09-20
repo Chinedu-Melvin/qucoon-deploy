@@ -1,18 +1,17 @@
 from flask import Flask
+
 app = Flask(__name__)
-# Triggering deploy for GitHub Actions
 
 @app.route("/")
-def index():
+def home():
     return """
     <html>
-      <head><title>Qucoon Academy — Lagos</title></head>
-      <body style="font-family:system-ui;line-height:1.6;padding:2rem;">
-        <h1>Qucoon Academy — Lagos</h1>
-        <p>Qucoon Academy is a tech training academy located in Lagos offering world-class cloud engineering training.</p>
-        <p>Specialties: cloud engineering, backend development, mentorship, and job-readiness.</p>
-        <p>Prepared by: Melvin</p>
-      </body>
+        <head><title>Qucoon Academy</title></head>
+        <body>
+            <h1>Welcome to Qucoon Academy</h1>
+            <p>Qucoon Academy is a tech training academy in Lagos.</p>
+            <p>Hi! I’m learning <strong>cloud engineering and architecture</strong> here. This project is a demonstration of my skills.</p>
+        </body>
     </html>
     """
 
