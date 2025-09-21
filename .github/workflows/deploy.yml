@@ -25,16 +25,78 @@ jobs:
           # Prepare app folder
           mkdir -p /home/ec2-user/app
           cd /home/ec2-user/app
-          
+          rm -rf *
+
           # Write app.py
           cat > app.py <<'EOF'
-          from flask import Flask
+          from flask import Flask, render_template_string
 
           app = Flask(__name__)
 
           @app.route("/")
           def home():
-              return "<h1>Welcome to Qucoon Academy</h1><p>Learning cloud at nnnnnnnnnnnnnnnnnnnQucoon engineering and architecture!</p>"
+              return render_template_string("""
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <title>Qucoon Project</title>
+                  <style>
+                      body {
+                          font-family: Arial, sans-serif;
+                          background: #f4f7fb;
+                          margin: 0;
+                          padding: 0;
+                          text-align: center;
+                      }
+                      header {
+                          background: #4CAF50;
+                          color: white;
+                          padding: 20px;
+                          font-size: 24px;
+                      }
+                      main {
+                          padding: 40px;
+                      }
+                      .card {
+                          background: white;
+                          padding: 20px;
+                          margin: 20px auto;
+                          border-radius: 10px;
+                          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                          max-width: 600px;
+                      }
+                      footer {
+                          background: #222;
+                          color: #bbb;
+                          padding: 15px;
+                          position: fixed;
+                          width: 100%;
+                          bottom: 0;
+                      }
+                  </style>
+              </head>
+              <body>
+                  <header>
+                      🌍 Qucoon Deployment - Cloud Journey
+                  </header>
+                  <main>
+                      <div class="card">
+                          <h2>Welcome to My Project</h2>
+                          <p>Hello, I’m <strong>Melvine</strong>.  
+                          I am currently learning <strong>Cloud Engineering & Architecture</strong>,  
+                          building skills in AWS, Terraform, Linux, and automation pipelines. 🚀</p>
+
+                          <p>This project demonstrates how to use <strong>GitHub Actions</strong>  
+                          to deploy a Python Flask app automatically to an <strong>EC2 instance</strong>.</p>
+                      </div>
+                  </main>
+                  <footer>
+                      &copy; 2025 | Built with Flask, GitHub Actions & AWS
+                  </footer>
+              </body>
+              </html>
+              """)
 
           if __name__ == "__main__":
               app.run(host="0.0.0.0", port=5000)
@@ -70,4 +132,3 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl enable qucoon.service
           sudo systemctl restart qucoon.service
-          sudo systemctl status qucoon.service
