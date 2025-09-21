@@ -1,19 +1,104 @@
-from flask import Flask
+from flask import Flask, render_template_string
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return """
-    <html>
-        <head><title>Qucoon Academy</title></head>
-        <body>
-            <h1>Welcome to Qucoon Academy</h1>
-            <p>Qucoon Academy is a tech training academy in Lagos.</p>
-            <p>Hi! I’m learning <strong>cloud engineering and architecture</strong> here. This project is a demonstration of my skills.</p>
-        </body>
+    return render_template_string("""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Qucoon Cloud Project</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #eef2f6;
+                color: #333;
+            }
+            header {
+                background: linear-gradient(90deg, #4CAF50, #2E7D32);
+                color: white;
+                padding: 50px 20px;
+                text-align: center;
+            }
+            header h1 {
+                font-size: 40px;
+                margin: 0;
+            }
+            header p {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+            section {
+                max-width: 900px;
+                margin: 40px auto;
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+            }
+            section h2 {
+                color: #2E7D32;
+                margin-bottom: 15px;
+            }
+            ul {
+                text-align: left;
+                line-height: 1.8;
+            }
+            footer {
+                background: #222;
+                color: #bbb;
+                padding: 20px;
+                text-align: center;
+                margin-top: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>🚀 Cloud Engineering & Architecture Journey</h1>
+            <p>Deployed automatically with GitHub Actions → AWS EC2</p>
+        </header>
+
+        <section>
+            <h2>About Me</h2>
+            <p>Hello 👋, my name is <strong>Melvine</strong>. I am passionate about <strong>Cloud Engineering</strong> and <strong>Solution Architecture</strong>.  
+            This project demonstrates my ability to combine development with cloud deployment pipelines.</p>
+        </section>
+
+        <section>
+            <h2>My Cloud Skills</h2>
+            <ul>
+                <li>☁️ Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC)</li>
+                <li>⚙️ Infrastructure as Code: Terraform, CloudFormation</li>
+                <li>🐧 Linux Systems: Shell scripting, server automation</li>
+                <li>🔄 CI/CD: GitHub Actions, Jenkins, automated pipelines</li>
+                <li>📦 Containers: Docker, containerized deployments</li>
+                <li>🛡️ Networking & Security: IAM, Security Groups, Firewalls</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Project Demo</h2>
+            <p>This web application is a simple <strong>Flask App</strong>, deployed through an automated workflow:</p>
+            <ol>
+                <li>Code is pushed to GitHub</li>
+                <li>GitHub Actions workflow runs</li>
+                <li>App is deployed to <strong>Amazon EC2</strong></li>
+                <li>Flask service runs with <strong>systemd</strong></li>
+            </ol>
+            <p>This is a proof of concept that demonstrates <strong>continuous deployment</strong> in the cloud 🌍.</p>
+        </section>
+
+        <footer>
+            &copy; 2025 | Built by Melvine | Cloud Engineering & Architecture | Flask + GitHub Actions + AWS
+        </footer>
+    </body>
     </html>
-    """
+    """)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
