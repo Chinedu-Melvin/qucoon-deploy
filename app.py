@@ -98,7 +98,7 @@ def home():
             <h2>How It Works</h2>
             <ol>
                 <li>Code is written in Python (Flask).</li>
-                <li>Changes are pushed to GitHub.</li>
+                
                 <li>GitHub Actions workflow deploys automatically to EC2.</li>
                 <li>The app runs as a systemd service, always available.</li>
             </ol>
