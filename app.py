@@ -9,92 +9,103 @@ def home():
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Qucoon Cloud Project</title>
+        <title>Melvine | Cloud Engineer</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: #eef2f6;
-                color: #333;
+                background: linear-gradient(135deg, #1E3C72, #2A5298);
+                color: #fff;
+                text-align: center;
             }
             header {
-                background: linear-gradient(90deg, #4CAF50, #2E7D32);
-                color: white;
-                padding: 50px 20px;
-                text-align: center;
+                padding: 60px 20px;
             }
             header h1 {
-                font-size: 40px;
-                margin: 0;
+                font-size: 50px;
+                margin-bottom: 10px;
             }
             header p {
-                font-size: 18px;
-                margin-top: 10px;
+                font-size: 20px;
+                margin-top: 0;
+                color: #ddd;
             }
             section {
-                max-width: 900px;
+                background: #fff;
+                color: #333;
                 margin: 40px auto;
-                background: white;
-                padding: 30px;
-                border-radius: 12px;
-                box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+                padding: 40px;
+                max-width: 900px;
+                border-radius: 15px;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+                text-align: left;
             }
             section h2 {
-                color: #2E7D32;
-                margin-bottom: 15px;
+                color: #1E3C72;
+                border-bottom: 2px solid #2A5298;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
             }
             ul {
-                text-align: left;
-                line-height: 1.8;
+                list-style: none;
+                padding: 0;
+            }
+            ul li {
+                margin: 10px 0;
+                font-size: 18px;
             }
             footer {
-                background: #222;
-                color: #bbb;
+                background: #111;
                 padding: 20px;
-                text-align: center;
                 margin-top: 40px;
+                font-size: 14px;
+                color: #aaa;
+            }
+            footer a {
+                color: #4CAF50;
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
         <header>
-            <h1>🚀 Cloud Engineering & Architecture Journey</h1>
-            <p>Deployed automatically with GitHub Actions → AWS EC2</p>
+            <h1>🌍 Cloud Engineering Journey</h1>
+            <p>Hi, I’m <strong>Melvine</strong> — Cloud Engineering & Architecture Student at Qucoon Academy 🚀</p>
         </header>
 
         <section>
-            <h2>About Me</h2>
-            <p>Hello 👋, my name is <strong>Melvine</strong>. I am passionate about <strong>Cloud Engineering</strong> and <strong>Solution Architecture</strong>.  
-            This project demonstrates my ability to combine development with cloud deployment pipelines.</p>
+            <h2>About This Project</h2>
+            <p>This web application is a <strong>Flask project</strong> deployed on <strong>AWS EC2</strong> using 
+            <strong>GitHub Actions</strong>.  
+            It is a proof of concept that shows how <em>automation</em>, <em>cloud deployment</em>, and 
+            <em>continuous integration</em> come together in real-world projects.</p>
         </section>
 
         <section>
-            <h2>My Cloud Skills</h2>
+            <h2>Skills I’m Building</h2>
             <ul>
                 <li>☁️ Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC)</li>
                 <li>⚙️ Infrastructure as Code: Terraform, CloudFormation</li>
-                <li>🐧 Linux Systems: Shell scripting, server automation</li>
-                <li>🔄 CI/CD: GitHub Actions, Jenkins, automated pipelines</li>
-                <li>📦 Containers: Docker, containerized deployments</li>
-                <li>🛡️ Networking & Security: IAM, Security Groups, Firewalls</li>
+                <li>🐧 Linux Systems: Shell scripting, automation</li>
+                <li>🔄 CI/CD Pipelines: GitHub Actions, Jenkins</li>
+                <li>📦 Containers & Deployment: Docker</li>
+                <li>🛡️ Security: IAM, Networking & Firewalls</li>
             </ul>
         </section>
 
         <section>
-            <h2>Project Demo</h2>
-            <p>This web application is a simple <strong>Flask App</strong>, deployed through an automated workflow:</p>
+            <h2>How It Works</h2>
             <ol>
-                <li>Code is pushed to GitHub</li>
-                <li>GitHub Actions workflow runs</li>
-                <li>App is deployed to <strong>Amazon EC2</strong></li>
-                <li>Flask service runs with <strong>systemd</strong></li>
+                <li>Code is written in Python (Flask).</li>
+                <li>Changes are pushed to GitHub.</li>
+                <li>GitHub Actions workflow deploys automatically to EC2.</li>
+                <li>The app runs as a systemd service, always available.</li>
             </ol>
-            <p>This is a proof of concept that demonstrates <strong>continuous deployment</strong> in the cloud 🌍.</p>
         </section>
 
         <footer>
-            &copy; 2025 | Built by Melvine | Cloud Engineering & Architecture | Flask + GitHub Actions + AWS
+            © 2025 | Built by Melvine | Cloud Engineering & Architecture 🚀  
         </footer>
     </body>
     </html>
