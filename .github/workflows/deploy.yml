@@ -42,7 +42,7 @@ jobs:
 
           # Write requirements.txt
           cat > requirements.txt <<'EOF'
-          flask==2.3.2
+          flask==2.2.5
           EOF
 
           # Install Python and Flask
