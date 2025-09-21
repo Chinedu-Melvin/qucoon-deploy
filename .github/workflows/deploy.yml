@@ -104,6 +104,8 @@ jobs:
                       <h2>My Cloud Skills</h2>
                       <ul>
                           <li>☁️ Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC)</li>
+                          <li>☁️ Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC)</li>
+                          <li>☁️ Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC)</li>
                           <li>⚙️ Infrastructure as Code: Terraform, CloudFormation</li>
                           <li>🐧 Linux Systems: Shell scripting, server automation</li>
                           <li>🔄 CI/CD: GitHub Actions, Jenkins, automated pipelines</li>
